@@ -1,0 +1,36 @@
+discovery.docker "linux" {
+    host = "unix:///var/run/docker.sock"
+}
+
+discovery.relabel "docker_logs" {
+    targets = discovery.docker.linux.targets
+
+    rule {
+        source_labels = ["__meta_docker_container_name"]
+        regex = "/(.+?)-(.+)"
+        replacement = "$1"
+        target_label  = "project"
+    }
+
+    rule {
+        source_labels = ["__meta_docker_container_name"]
+        regex = "/(.+?)-(.+)"
+        replacement = "$2"
+        target_label  = "container"
+    }
+}
+
+loki.source.docker "source_docker" {
+  host       = "unix:///var/run/docker.sock"
+  targets    = discovery.relabel.docker_logs.output
+  labels     = {
+    "source"    = "docker",
+  }
+  forward_to = [loki.write.loki.receiver]
+}
+
+loki.write "loki" {
+	endpoint {
+		url = "http://monitoring-loki-1.monitoring_default:3100/loki/api/v1/push"
+	}
+}

@@ -1,0 +1,38 @@
+auth_enabled: false
+
+limits_config:
+  ingestion_rate_mb: 10
+  ingestion_burst_size_mb: 20
+
+common:
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: inmemory
+
+compactor:
+  working_directory: /data/retention
+
+schema_config:
+  configs:
+    - from: "2024-08-06"
+      index:
+        period: 24h
+        prefix: index_
+      object_store: filesystem
+      schema: v13
+      store: tsdb
+
+storage_config:
+  tsdb_shipper:
+    active_index_directory: /data/tsdb-index
+    cache_location: /data/tsdb-cache
+
+  filesystem:
+    directory: /data/object-store
+
+query_scheduler:
+  max_outstanding_requests_per_tenant: 32768
+
+querier:
+  max_concurrent: 16

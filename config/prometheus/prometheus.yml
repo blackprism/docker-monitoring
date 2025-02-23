@@ -1,0 +1,10 @@
+scrape_configs:
+  - job_name: "docker_exporter"
+    scrape_interval: 10s
+    scrape_timeout: 9s
+
+    static_configs:
+      - targets: ["monitoring-docker-exporter-1.monitoring_default:9100"]
+
+scrape_config_files:
+  - external_service/*.yml
