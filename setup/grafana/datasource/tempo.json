@@ -1,0 +1,36 @@
+{
+  "id": 4,
+  "uid": "tempo",
+  "name": "tempo",
+  "type": "tempo",
+  "url": "http://tempo:3200",
+  "access":"proxy",
+  "jsonData": {
+    "nodeGraph": {
+      "enabled": true
+    },
+    "serviceMap": {
+      "datasourceUid": "prometheus"
+    },
+    "tracesToLogsV2": {
+      "customQuery": true,
+      "datasourceUid": "loki",
+      "query": "{source=~\".+\"} | json | trace_id = `${__trace.traceId}`",
+      "spanEndTimeShift": "1h",
+      "spanStartTimeShift": "-1h"
+    },
+    "tracesToMetrics": {
+      "datasourceUid": "prometheus"
+    },
+    "tracesToProfiles": {
+      "datasourceUid": "pyroscope",
+      "profileTypeId": "process_cpu:cpu:nanoseconds:cpu:nanoseconds",
+      "tags": [
+        {
+          "key": "service.name",
+          "value": "service_name"
+        }
+      ]
+    }
+  }
+}

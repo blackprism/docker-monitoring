@@ -31,6 +31,6 @@ loki.source.docker "source_docker" {
 
 loki.write "loki" {
 	endpoint {
-		url = "http://monitoring-loki-1.monitoring_default:3100/loki/api/v1/push"
+		url = "http://docker-monitoring-loki-1.docker-monitoring_default:3100/loki/api/v1/push"
 	}
 }
