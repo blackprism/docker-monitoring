@@ -8,9 +8,9 @@ distributor:
         otlp:
             protocols:
                 grpc:
-                    endpoint: "monitoring-tempo-1.monitoring_public:4317"
+                    endpoint: "docker-monitoring-tempo-1.docker-monitoring_public:4317"
                 http:
-                    endpoint: "monitoring-tempo-1.monitoring_public:4318"
+                    endpoint: "docker-monitoring-tempo-1.docker-monitoring_public:4318"
 
 metrics_generator:
     registry:
@@ -20,7 +20,7 @@ metrics_generator:
     storage:
         path: /var/tempo/generator/wal
         remote_write:
-            - url: http://monitoring-prometheus-1.monitoring_public:9090/api/v1/write
+            - url: http://docker-monitoring-prometheus-1.docker-monitoring_public:9090/api/v1/write
               send_exemplars: true
     traces_storage:
         path: /var/tempo/generator/traces
