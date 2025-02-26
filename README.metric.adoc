@@ -1,0 +1,86 @@
+= Integrating Application Monitoring
+
+This document outlines the steps required to configure an application to send metric data to your Docker monitoring stack, which includes Prometheus for metric storage and Grafana for visualization.
+
+== Prerequisites
+
+* Your application should expose metrics in a format that Prometheus can scrape (e.g., the Prometheus exposition format).
+
+== Overview
+
+Your monitoring stack utilizes Prometheus to scrape endpoint and store metrics. Applications need to expose an endpoint metrics in a format that Prometheus can scrape.
+
+== Configuration Steps
+
+=== Application Instrumentation
+
+.  **Implement a Prometheus Metrics Endpoint:**
+Your application must expose an HTTP endpoint that returns metrics in the Prometheus exposition format. +
+This involves:
+* Using a Prometheus client library for your programming language.
+* Defining the metrics you want to collect (counters, gauges, histograms, etc.).
+* Exposing these metrics via an HTTP endpoint (typically `/metrics`).
+.  **Ensure your external service is connected to this network:**
++
+[source,yaml]
+----
+# In your external service's docker-compose.yml
+services:
+  my-external-service:
+    image: example.org/my-external-service
+    networks:
+      - docker-monitoring_public
+networks:
+  docker-monitoring_public:
+    external: true
+----
+
+.  **Configure the scrape settings for your service:**
++
+[source,yaml]
+----
+# config/prometheus/external_service/my-external-service.yml
+scrape_configs:
+  - job_name: "my-external-service"
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    static_configs:
+      - targets: ["my-external-service.docker-monitoring_public:9100"]
+----
++
+The target format follows the Docker DNS pattern:
++
+[quote]
+----
+[container-name].docker-monitoring_public:[port]]
+----
++
+You can find the exact name of your container with the command:
++
+[source,bash]
+----
+docker ps --format '{{.Names}}'
+----
+.  **Restart Prometheus to load the new configuration:**
++
+[source,bash]
+----
+docker compose restart prometheus
+----
+
+== Troubleshooting
+
+* **Connectivity Issues**
+. Verify network connectivity:
++
+[source,bash]
+----
+docker run --rm --network docker-monitoring_public alpine ping my-external-service.docker-monitoring_public
+----
+
+. Check if the metrics endpoint is accessible:
++
+[source,bash]
+----
+docker run --rm --network docker-monitoring_public alpine/curl -v my-external-service.docker-monitoring_public:9100/metrics
+----
