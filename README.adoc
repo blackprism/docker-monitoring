@@ -1,0 +1,54 @@
+= Docker Monitoring
+
+A comprehensive Docker monitoring solution that combines Grafana with multiple observability tools to provide complete visibility into your Docker environments.
+
+== Overview
+
+This project sets up a monitoring stack for Docker environments using:
+
+- **https://grafana.com/oss/grafana[Grafana]**: Visualization and dashboarding
+- **https://prometheus.io[Prometheus]**: Metrics collection and storage
+- **https://grafana.com/oss/loki[Loki]**: Log storage
+- **https://grafana.com/oss/tempo[Tempo]**: Tracing collection and storage
+- **https://grafana.com/oss/pyroscope[Pyroscope]**: Continuous profiling
+- **https://grafana.com/oss/alloy-opentelemetry-collector[Alloy]**: Log collection
+- **https://hub.docker.com/r/blackprism/docker-exporter[Docker Exporter]**: Custom exporter for Docker metrics
+
+== Prerequisites
+
+- Docker and Docker Compose installed
+- Basic understanding of Docker and monitoring concepts
+
+== Quick Start
+
+. Clone this repository:
++
+[source,bash]
+----
+git clone https://github.com/blackprism/docker-monitoring.git
+cd docker-monitoring
+----
+
+. Start the monitoring stack:
++
+[source,bash]
+----
+docker network create docker-monitoring_public
+docker-compose up -d
+----
+
+. Initialize Grafana with data sources and dashboards:
++
+[source,bash]
+----
+chmod a+x setup/init.sh
+./setup/init.sh
+----
+
+. Access Grafana at http://localhost:3000 (default credentials: admin/admin)
+
+== External Service Monitoring
+
+- xref:README.metric.adoc[Metrics] Monitor metrics of external services running in a separate Docker Compose project
+- xref:README.tracing.adoc[Tracing] Trace for services deployed in a distinct Docker Compose project
+- xref:README.profiling.adoc[Profiling] Profile services deployed in a distinct Docker Compose project
