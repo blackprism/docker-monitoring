@@ -1,6 +1,6 @@
 {
-  "uid": "tempo-v0-2",
-  "name": "tempo v0.2",
+  "uid": "tempo-v0-2-1",
+  "name": "tempo v0.2.1",
   "type": "tempo",
   "url": "http://tempo:3200",
   "access":"proxy",
@@ -9,17 +9,17 @@
       "enabled": true
     },
     "serviceMap": {
-      "datasourceUid": "prometheus-v0-2"
+      "datasourceUid": "prometheus-v0-2-1"
     },
     "tracesToLogsV2": {
       "customQuery": true,
-      "datasourceUid": "loki-v0-2",
+      "datasourceUid": "loki-v0-2-1",
       "query": "{${__tags}} | json | traceid=\"${__span.traceId}\" | spanid=\"${__span.spanId}\"",
       "spanEndTimeShift": "2m",
       "spanStartTimeShift": "-2m"
     },
     "tracesToMetrics": {
-      "datasourceUid": "prometheus-v0-2",
+      "datasourceUid": "prometheus-v0-2-1",
       "queries": [
         {
           "name": "Related metrics",
@@ -34,7 +34,7 @@
       ]
     },
     "tracesToProfiles": {
-      "datasourceUid": "pyroscope-v0-2",
+      "datasourceUid": "pyroscope-v0-2-1",
       "profileTypeId": "process_cpu:cpu:nanoseconds:cpu:nanoseconds",
       "tags": [
         {

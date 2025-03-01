@@ -134,7 +134,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fednxmgapdloga"
+              "uid": "${source}"
             },
             "editorMode": "code",
             "expr": "sum(rate(docker_cpu_system_seconds_total{project=~\"$project\",service=~\"$service\"}[5m]) + rate(docker_cpu_user_seconds_total{project=~\"$project\",service=~\"$service\"}[5m])) by (name) *100",
@@ -241,7 +241,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fednxmgapdloga"
+              "uid": "${source}"
             },
             "editorMode": "code",
             "expr": "docker_child_process_cpu_percent_instant{project=~\"$project\",service=~\"$service\"}",
@@ -774,6 +774,10 @@
               "$__all"
             ]
           },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${source}"
+          },
           "definition": "label_values({service=~\".+\", project=~\"$project\"},service)",
           "includeAll": true,
           "label": "Service",
@@ -797,7 +801,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "docker v0.2",
+    "title": "docker v0.2.1",
     "weekStart": ""
   }
 }

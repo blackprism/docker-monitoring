@@ -1,7 +1,12 @@
 {
-  "uid": "prometheus-v0-2",
-  "name": "prometheus v0.2",
+  "uid": "prometheus-v0-2-1",
+  "name": "prometheus v0.2.1",
   "type": "prometheus",
   "url": "http://prometheus:9090",
-  "access":"proxy"
+  "access":"proxy",
+  "jsonData": {
+    "httpMethod": "POST",
+    "prometheusType": "Prometheus",
+    "prometheusVersion": "2.50.1"
+  }
 }
