@@ -1,7 +1,6 @@
 {
-  "id": 2,
-  "uid": "prometheus",
-  "name": "prometheus",
+  "uid": "prometheus-v0-2",
+  "name": "prometheus v0.2",
   "type": "prometheus",
   "url": "http://prometheus:9090",
   "access":"proxy"

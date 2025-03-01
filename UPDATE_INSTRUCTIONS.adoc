@@ -1,0 +1,47 @@
+= Update Instructions for Docker Monitoring
+
+This document provides step-by-step instructions for updating your Docker Monitoring stack.
+
+== General Update Process
+
+In order to provide a seamless upgrade experience and prevent conflicts with existing configurations, the update process for Docker Monitoring follows a specific pattern:
+
+* **New Datasources:** Each update will introduce new datasources suffixed with the version number. This ensures that your existing datasources remain untouched, allowing you to revert to a previous version if needed.
+* **New Dashboard:** A new Grafana dashboard, also suffixed with the version number, will be created. This provides a clean and updated view of your Docker environment with the latest features and improvements.
+
+**It is mandatory to use the new datasources and dashboard to benefit from all the features and improvements introduced in each update.**
+
+== Update Steps
+
+. Apply Updates:
+* Open a terminal and navigate to the root directory of your Docker Monitoring project.
+* Run the update script:
++
+[source,bash]
+----
+./setup/update.sh
+----
++
+This script will create new Grafana dashboard and datasources to reflect the changes. +
+**It will not modify any existing configurations.**
+
+. Apply Docker Compose Changes:
+* Apply the docker-compose changes.
++
+[source,bash]
+----
+docker-compose up -d
+----
++
+This will restart the containers with the latest configuration.
+
+. Grafana Configuration:
+* Navigate to the Grafana interface (http://localhost:3000 by default).
+* Verify that the new datasources are present, they are suffixed with the version number.
+* Update your dashboards to use the new datasources.
+* You may delete the old datasources to avoid confusion.
+* Verify that the new docker dashboard is present, with the version number.
+
+. Verify Functionality:
+* Ensure that all components of the monitoring stack are running correctly.
+* Check the Grafana dashboards to confirm that metrics, logs, and traces are being displayed as expected.

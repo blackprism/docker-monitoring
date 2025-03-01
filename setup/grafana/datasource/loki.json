@@ -1,18 +1,24 @@
 {
-  "id": 1,
-  "uid": "loki",
-  "name": "loki",
+  "uid": "loki-v0-2",
+  "name": "loki v0.2",
   "type": "loki",
   "url": "http://loki:3100",
   "access":"proxy",
   "jsonData": {
     "derivedFields": [
       {
-        "datasourceUid": "tempo",
-        "matcherRegex": "\"trace_id\":\"(\\w+)\"",
-        "name": "trace_id",
+        "datasourceUid": "tempo-v0-2",
+        "matcherRegex": "\"traceid\":\"(\\w+)\"",
+        "name": "traceid",
         "url": "${__value.raw}",
         "urlDisplayLabel": "View Trace"
+      },
+      {
+        "datasourceUid": "tempo-v0-2",
+        "matcherRegex": "\"spanid\":\"(\\w+)\"",
+        "name": "spanid",
+        "url": "{span:id = \"${__value.raw}\"}",
+        "urlDisplayLabel": "View Span"
       }
     ]
   }

@@ -1,0 +1,15 @@
+= Changelog
+
+== v0.2 (2024-03-01)
+
+* **Tracing Endpoint Update:**
+- The tracing endpoint has been updated from `docker-monitoring-tempo-1.docker-monitoring_public` to `docker-monitoring-collector.docker-monitoring_public`. This change reflects the shift to using the Alloy OpenTelemetry Collector for tracing data to enable log and metric collection.
+
+* **OpenTelemetry Trace Log Support:**
+- Added support for including logs within OpenTelemetry traces. This enhancement allows for richer contextual information within traces, aiding in debugging and performance analysis.
+
+* **OpenTelemetry Trace Metric Support:**
+- Introduced support for embedding metrics within OpenTelemetry traces. This feature enables the correlation of performance metrics with specific trace spans.
+
+* **Dashboard and Datasource Updates:**
+- The Grafana dashboard and datasources have been updated to reflect the new features and improvements.

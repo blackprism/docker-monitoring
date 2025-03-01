@@ -4,7 +4,7 @@ scrape_configs:
     scrape_timeout: 9s
 
     static_configs:
-      - targets: ["docker-monitoring-docker-exporter-1.docker-monitoring_default:9100"]
+      - targets: ["docker-exporter:9100"]
 
 scrape_config_files:
   - external_service/*.yml
