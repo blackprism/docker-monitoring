@@ -1,7 +1,6 @@
 {
-  "id": 4,
-  "uid": "tempo",
-  "name": "tempo",
+  "uid": "tempo-v0-2",
+  "name": "tempo v0.2",
   "type": "tempo",
   "url": "http://tempo:3200",
   "access":"proxy",
@@ -10,20 +9,32 @@
       "enabled": true
     },
     "serviceMap": {
-      "datasourceUid": "prometheus"
+      "datasourceUid": "prometheus-v0-2"
     },
     "tracesToLogsV2": {
       "customQuery": true,
-      "datasourceUid": "loki",
-      "query": "{source=~\".+\"} | json | trace_id = `${__trace.traceId}`",
-      "spanEndTimeShift": "1h",
-      "spanStartTimeShift": "-1h"
+      "datasourceUid": "loki-v0-2",
+      "query": "{${__tags}} | json | traceid=\"${__span.traceId}\" | spanid=\"${__span.spanId}\"",
+      "spanEndTimeShift": "2m",
+      "spanStartTimeShift": "-2m"
     },
     "tracesToMetrics": {
-      "datasourceUid": "prometheus"
+      "datasourceUid": "prometheus-v0-2",
+      "queries": [
+        {
+          "name": "Related metrics",
+          "query": "{$__tags}"
+        }
+      ],
+      "tags": [
+        {
+          "key": "service.name",
+          "value": "service_name"
+        }
+      ]
     },
     "tracesToProfiles": {
-      "datasourceUid": "pyroscope",
+      "datasourceUid": "pyroscope-v0-2",
       "profileTypeId": "process_cpu:cpu:nanoseconds:cpu:nanoseconds",
       "tags": [
         {

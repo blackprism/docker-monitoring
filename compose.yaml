@@ -10,6 +10,11 @@ services:
       - loki
     extra_hosts:
       - host.docker.internal:host-gateway
+    networks:
+      default:
+      docker-monitoring_public:
+          aliases:
+            - docker-monitoring-collector
     restart: unless-stopped
     volumes:
       - ./config/alloy:/etc/alloy
@@ -33,6 +38,7 @@ services:
     env_file:
       - .env
     environment:
+      GF_FEATURE_TOGGLES_ENABLE: "enableNativeHTTPHistogram"
       GF_INSTALL_PLUGINS: https://storage.googleapis.com/integration-artifacts/grafana-exploretraces-app/grafana-exploretraces-app-latest.zip;grafana-traces-app,grafana-pyroscope-app
     ports:
       - "3000:3000"
@@ -41,7 +47,7 @@ services:
       - grafana:/var/lib/grafana
 
   loki:
-    image: grafana/loki:3.3.2
+    image: grafana/loki:3.4
     command: -config.file=/etc/loki/config.yaml --pattern-ingester.enabled=true
     restart: unless-stopped
     user: root
@@ -65,11 +71,8 @@ services:
     restart: unless-stopped
 
   tempo:
-    image: grafana/tempo:2.7.0
+    image: grafana/tempo:2.7.1
     command: -config.file=/etc/tempo.yaml
-    networks:
-      - default
-      - docker-monitoring_public
     restart: unless-stopped
     volumes:
       - ./config/tempo/config.yaml:/etc/tempo.yaml

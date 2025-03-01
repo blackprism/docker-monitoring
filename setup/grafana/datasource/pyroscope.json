@@ -1,7 +1,6 @@
 {
-  "id": 3,
-  "uid": "pyroscope",
-  "name": "pyroscope",
+  "uid": "pyroscope-v0-2",
+  "name": "pyroscope v0.2",
   "type": "grafana-pyroscope-datasource",
   "url": "http://pyroscope:4040",
   "access":"proxy"
