@@ -67,7 +67,7 @@ otelcol.exporter.prometheus "default" {
 }
 
 otelcol.exporter.loki "default" {
-  forward_to = [loki.write.loki.receiver]
+    forward_to = [loki.write.loki.receiver]
 }
 
 otelcol.exporter.otlp "default" {
@@ -86,7 +86,7 @@ loki.write "loki" {
 }
 
 prometheus.remote_write "default" {
-  endpoint {
-    url = "http://prometheus:9090/api/v1/write"
-  }
+    endpoint {
+        url = "http://prometheus:9090/api/v1/write"
+    }
 }

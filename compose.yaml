@@ -65,10 +65,13 @@ services:
 
   pyroscope:
     image: grafana/pyroscope:1.12.0
+    command: -config.file=/etc/pyroscope/config.yaml
     networks:
       - default
       - docker-monitoring_public
     restart: unless-stopped
+    volumes:
+      - ./config/pyroscope/config.yaml:/etc/pyroscope/config.yaml
 
   tempo:
     image: grafana/tempo:2.7.1

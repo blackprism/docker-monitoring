@@ -1,0 +1,4 @@
+limits:
+    max_query_lookback: 0
+    max_query_length: 0
+    max_flamegraph_nodes_default: 0

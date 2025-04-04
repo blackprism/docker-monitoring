@@ -3,6 +3,7 @@ auth_enabled: false
 limits_config:
   ingestion_rate_mb: 10
   ingestion_burst_size_mb: 20
+  max_query_length: 0
 
 common:
   replication_factor: 1

@@ -27,6 +27,10 @@ metrics_generator:
             filter_server_spans: false
             flush_to_storage: true
 
+query_frontend:
+    metrics:
+        max_duration: 24h
+
 storage:
     trace:
         backend: local
